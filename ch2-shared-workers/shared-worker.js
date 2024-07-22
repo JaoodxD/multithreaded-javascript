@@ -8,6 +8,10 @@ self.onconnect = event => {
   ports.add(port)
   console.log('CONN', ID, ports.size)
   port.onmessage = event => {
+    if (event.data === 'close') {
+      ports.delete(port)
+      return
+    }
     console.log('MESSAGE', ID, event.data)
 
     for (const p of ports) {
